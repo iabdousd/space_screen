@@ -43,7 +43,8 @@ class SpaceMap extends StatelessWidget {
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
 
-    final stationLong = size.width / 4.75;
+    final stationLong =
+        stations.length < 6 ? size.width / 4.75 : size.width / 5.75;
 
     return LayoutBuilder(builder: (context, constraints) {
       return Stack(
@@ -83,16 +84,21 @@ class SpaceMap extends StatelessWidget {
 
           // STATION #1
           Positioned(
-            top: constraints.maxHeight / 2 -
-                stationLong / 2 -
-                .03 * size.width -
-                stationLong -
-                .735 * stationLong,
-            left: .66 * size.width -
-                stationLong / 2 -
-                .27 * stationLong -
-                .748 * stationLong,
+            top: stations.length >= 6
+                ? constraints.maxHeight / 2 - .317 * size.width - stationLong
+                : constraints.maxHeight / 2 -
+                    stationLong / 2 -
+                    .03 * size.width -
+                    stationLong -
+                    .735 * stationLong,
+            left: stations.length >= 6
+                ? .66 * size.width - stationLong - .183 * size.width
+                : .66 * size.width -
+                    stationLong / 2 -
+                    .27 * stationLong -
+                    .748 * stationLong,
             child: StationButton(
+              stationLong: stationLong,
               stationName: getStation(0).name,
               stationImage:
                   'assets/images/${getStation(0).imageName}_${getStation(0).status == 0 ? 'locked' : 'active'}.${getStation(0).imageType}',
@@ -105,12 +111,17 @@ class SpaceMap extends StatelessWidget {
 
           // STATION #2
           Positioned(
-            top: constraints.maxHeight / 2 -
-                stationLong / 2 -
-                .0065 * size.width -
-                stationLong,
-            left: .66 * size.width - stationLong / 2 - .27 * stationLong,
+            top: stations.length >= 6
+                ? constraints.maxHeight / 2 - .187 * size.width - stationLong
+                : constraints.maxHeight / 2 -
+                    stationLong / 2 -
+                    .0065 * size.width -
+                    stationLong,
+            left: stations.length >= 6
+                ? .66 * size.width - stationLong - .032 * size.width
+                : .66 * size.width - stationLong / 2 - .27 * stationLong,
             child: StationButton(
+              stationLong: stationLong,
               stationName: getStation(1).name,
               stationImage:
                   'assets/images/${getStation(1).imageName}_${getStation(1).status == 0 ? 'locked' : 'active'}.${getStation(1).imageType}',
@@ -123,9 +134,14 @@ class SpaceMap extends StatelessWidget {
 
           // STATION #3
           Positioned(
-            top: constraints.maxHeight / 2 - stationLong / 2,
-            left: .66 * size.width - stationLong / 2,
+            top: stations.length >= 6
+                ? constraints.maxHeight / 2 - stationLong - .01 * size.width
+                : constraints.maxHeight / 2 - stationLong / 2,
+            left: stations.length >= 6
+                ? .66 * size.width - 0.123 * size.width
+                : .66 * size.width - stationLong / 2,
             child: StationButton(
+              stationLong: stationLong,
               stationName: getStation(2).name,
               stationImage:
                   'assets/images/${getStation(2).imageName}_${getStation(2).status == 0 ? 'locked' : 'active'}.${getStation(2).imageType}',
@@ -138,12 +154,17 @@ class SpaceMap extends StatelessWidget {
 
           // STATION #4
           Positioned(
-            top: constraints.maxHeight / 2 -
-                stationLong / 2 +
-                .0065 * size.width +
-                stationLong,
-            left: .66 * size.width - stationLong / 2 - .27 * stationLong,
+            top: stations.length >= 6
+                ? constraints.maxHeight / 2 + .01 * size.width
+                : constraints.maxHeight / 2 -
+                    stationLong / 2 +
+                    .0065 * size.width +
+                    stationLong,
+            left: stations.length >= 6
+                ? .66 * size.width - 0.123 * size.width
+                : .66 * size.width - stationLong / 2 - .27 * stationLong,
             child: StationButton(
+              stationLong: stationLong,
               stationName: getStation(3).name,
               stationImage:
                   'assets/images/${getStation(3).imageName}_${getStation(3).status == 0 ? 'locked' : 'active'}.${getStation(3).imageType}',
@@ -156,16 +177,21 @@ class SpaceMap extends StatelessWidget {
 
           // STATION #5
           Positioned(
-            top: constraints.maxHeight / 2 -
-                stationLong / 2 +
-                .03 * size.width +
-                stationLong +
-                .735 * stationLong,
-            left: .66 * size.width -
-                stationLong / 2 -
-                .27 * stationLong -
-                .748 * stationLong,
+            top: stations.length >= 6
+                ? constraints.maxHeight / 2 + .187 * size.width
+                : constraints.maxHeight / 2 -
+                    stationLong / 2 +
+                    .03 * size.width +
+                    stationLong +
+                    .735 * stationLong,
+            left: stations.length >= 6
+                ? .66 * size.width - stationLong - .032 * size.width
+                : .66 * size.width -
+                    stationLong / 2 -
+                    .27 * stationLong -
+                    .748 * stationLong,
             child: StationButton(
+              stationLong: stationLong,
               stationName: getStation(4).name,
               stationImage:
                   'assets/images/${getStation(4).imageName}_${getStation(4).status == 0 ? 'locked' : 'active'}.${getStation(4).imageType}',
@@ -175,6 +201,23 @@ class SpaceMap extends StatelessWidget {
               cancelSelectStation: cancelSelectStation,
             ),
           ),
+
+          // STATION #6
+          if (stations.length >= 6)
+            Positioned(
+              top: constraints.maxHeight / 2 + .317 * size.width,
+              left: .66 * size.width - stationLong - .183 * size.width,
+              child: StationButton(
+                stationLong: stationLong,
+                stationName: getStation(5).name,
+                stationImage:
+                    'assets/images/${getStation(5).imageName}_${getStation(5).status == 0 ? 'locked' : 'active'}.${getStation(5).imageType}',
+                status: getStation(4).status,
+                selected: isStationSelected(getStation(4)),
+                handleClick: () => selectStation(getStation(4)),
+                cancelSelectStation: cancelSelectStation,
+              ),
+            ),
         ],
       );
     });

@@ -10,6 +10,7 @@ class StationButton extends StatelessWidget {
   final int status;
   final VoidCallback handleClick;
   final VoidCallback cancelSelectStation;
+  final double stationLong;
 
   const StationButton({
     Key? key,
@@ -18,19 +19,16 @@ class StationButton extends StatelessWidget {
     required this.status,
     required this.handleClick,
     required this.cancelSelectStation,
+    required this.stationLong,
     this.selected: false,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final size = MediaQuery.of(context).size;
-
     final stationNameStyle = TextStyle(
       color: selected ? kStationColorDark : kThemeColorLight,
       fontSize: 17.0,
     );
-
-    final stationLong = size.width / 4.75;
 
     return GestureDetector(
       onTapCancel: cancelSelectStation,
