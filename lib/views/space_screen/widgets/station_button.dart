@@ -44,8 +44,7 @@ class StationButton extends StatelessWidget {
                 top: 0,
                 bottom: 0,
                 child: Center(
-                  child: AnimatedContainer(
-                    duration: Duration(milliseconds: 150),
+                  child: Container(
                     constraints: BoxConstraints(
                         // maxWidth: stationLong,
                         ),
@@ -63,13 +62,10 @@ class StationButton extends StatelessWidget {
                         bottomRight: Radius.circular(16.0),
                       ),
                     ),
-                    child: AnimatedDefaultTextStyle(
-                      duration: Duration(milliseconds: 150),
+                    child: Text(
+                      stationName[0].toUpperCase() +
+                          stationName.substring(1, stationName.length),
                       style: stationNameStyle,
-                      child: Text(
-                        stationName[0].toUpperCase() +
-                            stationName.substring(1, stationName.length),
-                      ),
                     ),
                   ),
                 ),
