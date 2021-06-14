@@ -72,10 +72,6 @@ class _SpaceScreenState extends State<SpaceScreen> {
   @override
   void initState() {
     super.initState();
-    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-      statusBarColor: Colors.deepPurple,
-      statusBarBrightness: Brightness.dark,
-    ));
     _init();
   }
 
