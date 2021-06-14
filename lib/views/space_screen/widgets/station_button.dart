@@ -30,20 +30,20 @@ class StationButton extends StatelessWidget {
       fontSize: 17.0,
     );
 
-    return GestureDetector(
-      onTapCancel: cancelSelectStation,
-      onTapDown: (details) => handleClick(),
-      child: Stack(
-        children: [
-          if (stationName.isNotEmpty)
-            Positioned(
-              left: stationLong - 12,
-              top: 0,
-              bottom: 0,
-              child: Center(
-                child: FadeIn(
-                  key: Key(stationName + '_label'),
-                  duration: Duration(milliseconds: 500),
+    return FadeIn(
+      key: Key(stationName),
+      duration: Duration(milliseconds: 300),
+      child: GestureDetector(
+        onTapCancel: cancelSelectStation,
+        onTapDown: (details) => handleClick(),
+        child: Stack(
+          children: [
+            if (stationName.isNotEmpty)
+              Positioned(
+                left: stationLong - 12,
+                top: 0,
+                bottom: 0,
+                child: Center(
                   child: AnimatedContainer(
                     duration: Duration(milliseconds: 150),
                     constraints: BoxConstraints(
@@ -74,63 +74,55 @@ class StationButton extends StatelessWidget {
                   ),
                 ),
               ),
-            ),
-          Container(
-            decoration: BoxDecoration(
-              image: DecorationImage(
-                image: AssetImage(
-                  selected
-                      ? 'assets/images/station_btn_selected.png'
-                      : 'assets/images/station_btn_idle.png',
+            Container(
+              decoration: BoxDecoration(
+                image: DecorationImage(
+                  image: AssetImage(
+                    selected
+                        ? 'assets/images/station_btn_selected.png'
+                        : 'assets/images/station_btn_idle.png',
+                  ),
                 ),
               ),
-            ),
-            height: stationLong,
-            width: stationLong,
-            margin: EdgeInsets.only(right: stationLong),
-            child: Stack(
-              children: [
-                Center(
-                  child: status == -1
-                      ? Shimmer.fromColors(
-                          child: Container(
-                            width: stationLong / 2.125,
-                            height: stationLong / 2.125,
-                            decoration: BoxDecoration(
-                              color: Colors.white,
-                              shape: BoxShape.circle,
+              height: stationLong,
+              width: stationLong,
+              margin: EdgeInsets.only(right: stationLong),
+              child: Stack(
+                children: [
+                  Center(
+                    child: status == -1
+                        ? Shimmer.fromColors(
+                            child: Container(
+                              width: stationLong / 2.125,
+                              height: stationLong / 2.125,
+                              decoration: BoxDecoration(
+                                color: Colors.white,
+                                shape: BoxShape.circle,
+                              ),
                             ),
-                          ),
-                          baseColor: kStationColorDark,
-                          highlightColor: kTopBarColorDarker,
-                        )
-                      : FadeIn(
-                          key: Key(stationName),
-                          duration: Duration(milliseconds: 500),
-                          child: Image.asset(
+                            baseColor: kStationColorDark,
+                            highlightColor: kTopBarColorDarker,
+                          )
+                        : Image.asset(
                             stationImage,
                             width: stationLong / 2.125,
                             height: stationLong / 2.125,
                           ),
-                        ),
-                ),
-                if (status == 0)
-                  Center(
-                    child: FadeIn(
-                      key: Key(stationName + '_'),
-                      duration: Duration(milliseconds: 500),
+                  ),
+                  if (status == 0)
+                    Center(
                       child: Image.asset(
                         'assets/images/ic_lock.png',
                         width: stationLong / 6.375,
                         height: stationLong / 6.375,
                         alignment: Alignment.center,
                       ),
-                    ),
-                  )
-              ],
+                    )
+                ],
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
