@@ -9,6 +9,7 @@ class StationButton extends StatelessWidget {
   final bool selected;
   final int status;
   final VoidCallback handleClick;
+  final VoidCallback cancelSelectStation;
 
   const StationButton({
     Key? key,
@@ -16,6 +17,7 @@ class StationButton extends StatelessWidget {
     required this.stationImage,
     required this.status,
     required this.handleClick,
+    required this.cancelSelectStation,
     this.selected: false,
   }) : super(key: key);
 
@@ -30,8 +32,9 @@ class StationButton extends StatelessWidget {
 
     final stationLong = size.width / 4.75;
 
-    return InkWell(
-      onTap: handleClick,
+    return GestureDetector(
+      onTapCancel: cancelSelectStation,
+      onTapDown: (details) => handleClick(),
       child: Stack(
         children: [
           if (stationName.isNotEmpty)
@@ -43,7 +46,8 @@ class StationButton extends StatelessWidget {
                 child: FadeIn(
                   key: Key(stationName + '_label'),
                   duration: Duration(milliseconds: 500),
-                  child: Container(
+                  child: AnimatedContainer(
+                    duration: Duration(milliseconds: 150),
                     constraints: BoxConstraints(
                         // maxWidth: stationLong,
                         ),
@@ -61,10 +65,13 @@ class StationButton extends StatelessWidget {
                         bottomRight: Radius.circular(16.0),
                       ),
                     ),
-                    child: Text(
-                      stationName[0].toUpperCase() +
-                          stationName.substring(1, stationName.length),
+                    child: AnimatedDefaultTextStyle(
+                      duration: Duration(milliseconds: 150),
                       style: stationNameStyle,
+                      child: Text(
+                        stationName[0].toUpperCase() +
+                            stationName.substring(1, stationName.length),
+                      ),
                     ),
                   ),
                 ),

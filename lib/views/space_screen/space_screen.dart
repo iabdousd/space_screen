@@ -48,13 +48,22 @@ class _SpaceScreenState extends State<SpaceScreen> {
 
   void selectStation(StationModel station) {
     if (station.status == 1) {
-      print("${station.name} pressed");
       setState(
-        () => selectedStationName == station.name
-            ? selectedStationName = null
-            : selectedStationName = station.name,
+        () {
+          if (selectedStationName == station.name) {
+            selectedStationName = null;
+          } else {
+            selectedStationName = station.name;
+          }
+        },
       );
     }
+  }
+
+  void cancelSelectStation() {
+    setState(() {
+      selectedStationName = null;
+    });
   }
 
   bool isStationSelected(StationModel station) =>
@@ -92,6 +101,7 @@ class _SpaceScreenState extends State<SpaceScreen> {
                   stations: stations,
                   selectStation: selectStation,
                   isStationSelected: isStationSelected,
+                  cancelSelectStation: cancelSelectStation,
                 ),
               ),
               LevelButtonList(),
